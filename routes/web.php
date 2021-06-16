@@ -15,21 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-//    'Hello';
-});
 
+Auth::routes(['verify' => true]);
 
-Route::get('auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::get('auth/registration', [AuthController::class, 'registrationForm'])->name('registration.form');
-Route::post('auth/login', [AuthController::class, 'handleLogin'])->name('auth.handle-login');
-Route::post('auth/registration', [AuthController::class, 'registration'])->name('registration');
-Route::get('auth/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('articles', [ArticleController::class, 'index'])->name('articles');
-
-Route::get('send-mail', function () {
-    \Illuminate\Support\Facades\Mail::to('yeo@afsas.com')->send(new \App\Mail\RegistrationMail());
-    dd('message sent');
-});
+Route::get('/articles', [ArticleController::class, 'index'])->middleware('can:view,\App\Article')->name('articles');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles/create', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::post('/articles/{id}/edit', [ArticleController::class, 'update'])->name('articles.update');
+Route::get('/articles/{id}/delete', [ArticleController::class, 'destroy'])->name('articles.destroy');
