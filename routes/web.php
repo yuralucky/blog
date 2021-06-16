@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('layout');
+//    'Hello';
 });
 
 
@@ -26,4 +27,9 @@ Route::post('auth/login', [AuthController::class, 'handleLogin'])->name('auth.ha
 Route::post('auth/registration', [AuthController::class, 'registration'])->name('registration');
 Route::get('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('articles',[ArticleController::class,'index'])->name('articles');
+Route::get('articles', [ArticleController::class, 'index'])->name('articles');
+
+Route::get('send-mail', function () {
+    \Illuminate\Support\Facades\Mail::to('yeo@afsas.com')->send(new \App\Mail\RegistrationMail());
+    dd('message sent');
+});
