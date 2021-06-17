@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->integer('user_id');
-            $table->boolean('is_visible')->default(true);
+            $table->tinyInteger('is_visible')->default(0);
             $table->timestamps();
         });
     }
