@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/articles', [ArticleController::class, 'index'])->middleware('can:view,\App\Article')->name('articles');
+Route::get('/', [ArticleController::class, 'index'])->name('main');
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
 Route::post('/articles/create', [ArticleController::class, 'store'])->name('articles.store');
 Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');

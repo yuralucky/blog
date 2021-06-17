@@ -56,6 +56,15 @@ class RegisterController extends Controller
         ]);
     }
 
+    protected function validatorPhone(array $data)
+    {
+        return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string','min:8','max:13', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -69,5 +78,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function createWithoutEmail(array $data)
+    {
+
     }
 }
